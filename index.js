@@ -26,15 +26,16 @@ class Timer {
     ref.secs.textContent = this.pad(Math.floor((time % (1000 * 60)) / 1000));
   }
 
-  start() {
-    let currentTime = Date.now();
-    this.deltaTime = Date.parse(this.stopDate) - currentTime;
+  countInterval(value) {
+    this.deltaTime = Date.parse(value) - Date.now();
     this.updateClock(this.deltaTime);
+  }
+
+  start() {
+    this.countInterval(this.stopDate);
 
     this.interval = setInterval(() => {
-      let currentTime = Date.now();
-      this.deltaTime = Date.parse(this.stopDate) - currentTime;
-      this.updateClock(this.deltaTime);
+      this.countInterval(this.stopDate);
     }, 1000);
   }
 }
